@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Container, Divider, Header, Segment } from "semantic-ui-react";
+import LinkTable from "./components/LinkTable";
+import NewLink from "./components/NewLink";
 
 function App() {
+
+  const [loaded, setLoaded] = useState(false)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container>
+        <Divider hidden/>
+        <Header textAlign="center" as="h1">Fuck GED</Header>
+        <p><b>Seja feliz e evite acessar o GED :).</b></p> 
+        <p><b>Aqui você registra os links dos procedimentos para que você não tenha o desprazer de utilizar esse site que a nossa empresa paga.</b></p>
+        <NewLink setLoaded={setLoaded}/>
+        <LinkTable loaded={loaded} setLoaded={setLoaded}/>
+      </Container>
     </div>
   );
 }
