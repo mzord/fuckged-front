@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { Form, Input, Button, Divider, Segment, Modal } from "semantic-ui-react";
 
-const NewLink = (props) => {
+const EditLink = (props) => {
 
     const open = props.open
     const setOpen = props.setOpen
-    const [data, setData] = useState({title: "", url: ""})
+    const data = props.data
+    const setData = props.setData
 
     const handleFormSubmit = () => {
-        fetch("http://localhost:8080/api/links", {
-            method: "POST",
+        fetch("http://localhost:8080/api/links/" + props.data.id, {
+            method: "PATCH",
             mode: "cors",
             headers: {
                 "Content-Type": "application/json"
@@ -25,7 +26,6 @@ const NewLink = (props) => {
         .then(data => {
             setOpen(false)
             props.setLoaded(false)
-            setData({title: "", url: ""})
         })
     }
 
@@ -34,10 +34,9 @@ const NewLink = (props) => {
             onOpen={() => setOpen(true)}
             onClose={() => setOpen(false)}
             open={open}
-            trigger={<Button color="green">New Link</Button>}
         >
             <Modal.Header>
-                Crie um novo link para não ter que usar o GED.
+                EDITE UM LINK
             </Modal.Header>
             <Modal.Content>
                 <Form>
@@ -47,9 +46,7 @@ const NewLink = (props) => {
                             type="text" 
                             value={data.title}
                             onChange={(e) => setData({...data, title: e.target.value})} 
-                            width={16}
                             label="Title" />
-                            
                         <Form.Field 
                             control={Input} 
                             type="text" 
@@ -65,4 +62,4 @@ const NewLink = (props) => {
     )
 }
 
-export default NewLink;
+export default EditLink;
